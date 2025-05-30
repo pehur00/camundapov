@@ -15,7 +15,19 @@ spec:
     spec:
       containers:
         - name: camunda
-          image: camunda/camunda-bpm-platform:7.17
+          image: camunda/camunda-bpm-platform:7.20.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CAMUNDA_JAVA_OPTS
+              value: "-Xmx1024m -XX:+UseG1GC"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:h2:mem:camunda;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              value: "org.h2.Driver"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "sa"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: ""
           ports:
             - containerPort: 8080
           resources:
